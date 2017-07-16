@@ -1,0 +1,9 @@
+/.idea
+/TEST_FILES
+/EXTRACTED
+/PARTITION
+/PROCESS
+/FAILED
+/SOURCE
+*.log
+gallery

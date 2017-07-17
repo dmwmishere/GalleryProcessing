@@ -46,22 +46,24 @@ fi
 
 echo $file_md5
 
-mkdir $extracted/$file_md5
+extract_path=$extracted/$dbid
+
+mkdir $extract_path
 
 extract_rs=99
 
 # Файл распаковывается (если архив) в EXTRACTED или копируется (если медиа)
 case ${extension,,} in
 	zip)
-		unzip -o -q "${file}" -d "$extracted/$file_md5" 
+		unzip -o -q "${file}" -d "$extract_path" 
 		extract_rs=$?
 		;;
 	rar)
-		unrar e -p- "${file}" "$extracted/$file_md5" -y -inul
+		unrar e -p- "${file}" "$extract_path" -y -inul
 		extract_rs=$?
 		;;
 	mp4|avi|wmv|mov|mpeg)
-		cp "$file" "$extracted/$file_md5"
+		cp "$file" "$extract_path"
 		extract_rs=$?
 		;;
 	*)
@@ -79,12 +81,12 @@ then
 	# continue # тут скипнуть нельзя т.к. статус надо записать и успешный тоже
 else
 	# Проверить содержимое в EXTRACTED. Тут задаются возможные форматы
-	valid_files_count=$(find $extracted/$file_md5 -iregex ".*.\(mp4\|png\|jpg\|jpeg\|avi\|wmv\|mov\|mpeg\)" | wc -l)
+	valid_files_count=$(find $extract_path -iregex ".*.\(mp4\|png\|jpg\|jpeg\|avi\|wmv\|mov\|mpeg\)" | wc -l)
 	if [ $valid_files_count -eq 0 ]
 	then
 		echo no images or media found!
 		mv "$file" "$failed/$filename1"
-		# rm -r $extracted/$file_md5 # Чистку ошибочных каталогов вынести в postprocess
+		# rm -r $extract_path # Чистку ошибочных каталогов вынести в postprocess
 		final_state=3
 	fi
 fi

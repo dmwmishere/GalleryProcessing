@@ -14,8 +14,9 @@ create table checks (
 	check3 integer, -- хэш код отсутствует в БД
 	check4 integer, -- архив распакован / медиа перемещено
 	check5 integer, -- существувют медиа файлы в папке
-	check6 integer,
-	check7 integer,
+	check6 integer, -- генерация миниатюр
+	check7 integer, -- запаковка
+	check8 integer, -- запись в табл. gallery
 	desicion integer, -- резолюция по файлу
 	starttime datetime NOT NULL default CURRENT_TIMESTAMP, -- время занесения записи в эту таблицу
 	phase1time datetime, -- время прохождения 1ой фазы (processing.sh)

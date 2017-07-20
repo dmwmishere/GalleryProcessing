@@ -91,7 +91,7 @@ else
 	fi
 fi
 
-sqlite3 -init <(echo .timeout 20000) $db "update checks set check4 = $extract_rs, check5 = $valid_files_count where id in (select max(id) from checks where id = $dbid)"
+sqlite3 -init <(echo .timeout 20000) $db "update checks set check4 = $extract_rs, check5 = $valid_files_count, phase1time = CURRENT_TIMESTAMP where id in (select max(id) from checks where id = $dbid)"
 
 
 if [ $final_state -eq 0 ]

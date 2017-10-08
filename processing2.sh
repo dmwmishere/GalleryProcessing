@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 echo Processing phase 2...
 
 source folder_settings.ini
@@ -51,7 +51,7 @@ then
 	if [ $thumbstat1 -eq 1 -o $thumbstat1 -eq 1 ]
 	then
 		echo failed to create one or more thumbnails!
-		check6=$(expr $check6 1)
+		check6=101
 	fi
 	
 elif  [ ! -z "$images" ]
@@ -75,6 +75,9 @@ else
 fi
 echo Content type: $check6, Packing...
 
+check7=null
+check8=null
+
 if [ $check6 -eq 100 -o $check6 -eq 200 ]
 then
 	echo "creating archive: $id --> $hash"
@@ -87,7 +90,7 @@ then
 	echo Inserting gallery instance...
 	sqlite3 -init <(echo .timeout 20000) $db "insert into gallery \
 		(partition, filename, img1, img2, description) \
-		select '$PWD', hash, X'$(hexdump -ve '1/1 "%.2x"' $thumbdir/$THMB1)', \
+		select '', hash, X'$(hexdump -ve '1/1 "%.2x"' $thumbdir/$THMB1)', \
 		X'$(hexdump -ve '1/1 "%.2x"' $thumbdir/$THMB2)', filename \
 		from checks where id = $id;"
 	check8=$?
@@ -104,3 +107,4 @@ done
 #sleep 3
 
 #done
+set +x

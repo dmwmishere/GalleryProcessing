@@ -5,5 +5,8 @@
 /PROCESS
 /FAILED
 /SOURCE
+/DockerDistribReady
 *.log
 gallery
+*TestFiles.ods*
+Dockerfile

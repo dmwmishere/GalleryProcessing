@@ -122,7 +122,7 @@ if [ $check1_rs -eq 1 -o $check2_rs -eq 1 -o $check3_rs -eq 1 ]
 then
 	mv "$file" "$failed/$filename1"
 else
-	mv "$file" "$process/$file_md5-${dbid:1}-$filename1"
+	mv "$file" "$process/$file_md5-$(($dbid+0))-$filename1"
 	# FIXME: ${dbid:1} если используем sqlite3 с инициирующим файлом, в выводе будет лишний байт. Исследовать и убрать неопределенность
 fi
 
